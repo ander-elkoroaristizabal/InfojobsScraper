@@ -2,6 +2,7 @@
 
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
+from re import sub
 
 
 def get_the_info(url):
@@ -32,7 +33,7 @@ def scrap_title_panel(soup):
     # Para encontrar de manera más segura los contenidos interesantes sin id
     # reducimos el espacio de búsqueda a la lista de puntos:
     bullet_list = title_panel.find("div", {"class": "col-child inner"})
-    salario = str(bullet_list.find(text=lambda t: "Salario" in t))[9:].capitalize()
+    salario = sub(r"Salario:?", "", str(bullet_list.find(text=lambda t: "Salario" in t))).strip().capitalize()
     exp_minima = str(bullet_list.find(text=lambda t: "Experiencia mínima" in t))[20:].capitalize()
     info_dict = {"puesto": puesto,
                  "empresa": empresa,
