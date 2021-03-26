@@ -25,6 +25,7 @@ This module has been developed for educative (non-comercial) purposes.
 ```
 urllib
 BeautifulSoup
+re
 ```
 
 ### Files: 
