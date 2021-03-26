@@ -32,7 +32,7 @@ def scrap_title_panel(soup):
     # Para encontrar de manera más segura los contenidos interesantes sin id
     # reducimos el espacio de búsqueda a la lista de puntos:
     bullet_list = title_panel.find("div", {"class": "col-child inner"})
-    salario = str(bullet_list.find(text=lambda t: "Salario" in t))[9:]
+    salario = str(bullet_list.find(text=lambda t: "Salario" in t))[9:].capitalize()
     exp_minima = str(bullet_list.find(text=lambda t: "Experiencia mínima" in t))[20:].capitalize()
     info_dict = {"puesto": puesto,
                  "empresa": empresa,
