@@ -31,5 +31,6 @@ BeautifulSoup
 
 + **main.py**: contains the main routine. 
 + **OnePageScraper.py**: contains the code for scraping just one *Infojobs* offer. 
++ **robots.txt**: *robots.txt* file from *Infojobs.net* at the beginning of the development of this module.
 
 ### 
