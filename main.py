@@ -6,9 +6,30 @@ in its simplest version, and from several, in a bright future.
 """
 
 from OnePageScraper import scrap_this_page
+from SearchPageScraper import scrape_search_results
+import pandas as pd
+from time import sleep
+
+
+def get_link_info(list_with_urls):
+    # df = pd.DataFrame(columns=['url', "puesto", "empresa", "valoracion_empresa",
+    #                            "ciudad", "pais", "tipo_contrato", "salario", "exp_minima"]
+    # df['url'] = url_list
+    dict_list = []
+    for url in list_with_urls:
+        sleep(2.5)
+        job_info = scrap_this_page(url)
+        print(url)
+        print(job_info)
+        job_info['url'] = url
+        dict_list.append(job_info)
+    return pd.DataFrame(dict_list)
+
 
 if __name__ == '__main__':
-    onepage = str(input("EN: Insert the url to be scraped: ")) or \
-        "https://www.infojobs.net/barcelona/un-data-analyst/of-i210e2eec1e472aa83876b587065bc4?applicationOrigin=mahout-view-offer%7Celement%7Ef47cb3da-521d-4780-8098-af950424c10b%7Cversion%7EITEM_BASED%7Cscoring%7E2.5365782"
+    keywords = str(input("EN: enter keywords: ")) or \
+        "Data Scientist"
     print()
-    print(scrap_this_page(onepage))
+    url_list = scrape_search_results(keywords)
+    res = get_link_info(url_list)
+    print(res)

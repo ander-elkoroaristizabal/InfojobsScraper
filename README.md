@@ -24,6 +24,7 @@ This module has been developed for educative (non-comercial) purposes.
 
 ```
 urllib
+selenium
 BeautifulSoup
 re
 ```
