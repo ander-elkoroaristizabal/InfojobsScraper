@@ -2,6 +2,8 @@
 
 ![](img.png)
 
+***Remark: neither this repository nor its creator are related to Infojobs.***
+
 ### Descripción:
 
 Este módulo Python tiene como objetivo poder hacer una búsqueda concreta en *Infojobs* 
@@ -74,4 +76,4 @@ pandas
 
 ### License:
 
-This module and the example dataset(s) are Released Under CC0: Public Domain License. 
+This module and the example dataset(s) are **Released Under CC0: Public Domain License**. 
