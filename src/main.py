@@ -10,12 +10,10 @@ from SearchPageScraper import scrape_search_results
 import pandas as pd
 from time import sleep
 from datetime import datetime
+from os import path
 
 
 def get_link_info(list_with_urls):
-    # df = pd.DataFrame(columns=['url', "puesto", "empresa", "valoracion_empresa",
-    #                            "ciudad", "pais", "tipo_contrato", "salario", "exp_minima"]
-    # df['url'] = url_list
     dict_list = []
     for url in list_with_urls:
         sleep(2)
@@ -36,5 +34,7 @@ if __name__ == '__main__':
     res = get_link_info(url_list)
     now = datetime.now()
     filename = keywords.replace(" ", "_") + "_" + now.strftime("%d-%m-%Y_%H_%M_%S") + ".csv"
-    res.to_csv("Examples/" + filename, index = False)
+    dirname = path.dirname(__file__)
+    path = path.join(dirname, "../Examples/" + filename)
+    res.to_csv(path, index = False)
     print(res)

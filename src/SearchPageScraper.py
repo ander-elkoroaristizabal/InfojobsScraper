@@ -52,8 +52,11 @@ def scrape_search_results(search_key):
     # Getting number of results:
     soup = BeautifulSoup(urlopen(Request(search_url, headers=headers)),
                          "html.parser", from_encoding="windows-1252")
-    num_results = int(soup.find("h1", {"class": "ij-ResultsOverview"}).text[:2])
+    num_results = int(soup.find("h1", {"class": "ij-ResultsOverview"}).text[:3])  # TODO: improve this!!
     num_pages = int(num_results/20) + 1
+    print()
+    print("Número de ofertas encontradas:", num_results)
+    print()
     # Defining the driver
     # # Defining the options
     options = webdriver.ChromeOptions()
