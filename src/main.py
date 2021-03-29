@@ -35,6 +35,6 @@ if __name__ == '__main__':
     now = datetime.now()
     filename = keywords.replace(" ", "_") + "_" + now.strftime("%d-%m-%Y_%H_%M_%S") + ".csv"
     dirname = path.dirname(__file__)
-    path = path.join(dirname, "../Examples/" + filename)
+    path = path.join(dirname, "../examples/" + filename)
     res.to_csv(path, index = False)
     print(res)

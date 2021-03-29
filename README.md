@@ -1,6 +1,6 @@
 # Infojobs Scraper
 
-![](img.png)
+![](others/img.png)
 
 ***Remark: neither this repository nor its creator are related to Infojobs.***
 
@@ -66,13 +66,16 @@ BeautifulSoup
 pandas
 ```
 
-### Files: 
+## Files: 
 
-+ **main.py**: contains the main routine. 
-+ **OnePageScraper.py**: contains the code for scraping just one *Infojobs* offer.
-+ **SearchPageScraper.py**: contains the code for scraping the search results pages in order to get the links to the offers. 
-+ **Examples folder**: contains some examples of datasets obtained using the scraper.
-+ **robots.txt**: *robots.txt* file from *Infojobs.net* at the beginning of the development of this module.
++ ***src folder:*** 
+    + **main.py**: contains the main routine. 
+    + **OnePageScraper.py**: contains the code for scraping just one *Infojobs* offer.
+    + **SearchPageScraper.py**: contains the code for scraping the search results pages in order to get the links to the offers. 
++ **examples folder**: contains some examples of datasets obtained using the scraper.
++ ***others folder:*** 
+    + **robots.txt**: *robots.txt* file from *Infojobs.net* at the beginning of the development of this module.
+    + **img.png**: image for the repository.
 
 ### License:
 
