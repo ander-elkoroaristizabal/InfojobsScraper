@@ -79,4 +79,5 @@ pandas
 
 ### License:
 
-This module and the example dataset(s) are **Released Under CC0: Public Domain License**. 
+This module and the example dataset(s) are **Released Under 
+[CC BY-NC-SA 4.0 License](https://creativecommons.org/licenses/by-nc-sa/4.0/)**. 
