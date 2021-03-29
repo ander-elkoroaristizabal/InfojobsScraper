@@ -64,7 +64,10 @@ urllib
 selenium
 BeautifulSoup
 pandas
+tqdm
 ```
+
+This module also requires having installed [chromedriver](https://sites.google.com/a/chromium.org/chromedriver).
 
 ## Files: 
 

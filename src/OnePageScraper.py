@@ -24,7 +24,6 @@ def scrap_title_panel(soup):
     :param soup: BeautifulSoup object with the title panel.
     :return info_dict: dictionary with the interesting characteristics we have found in the given title panel.
     """
-    # try:
     title_panel = soup.body.find("div", {"class": "panel-canvas panel-rounded"})
     puesto = str(title_panel.find(id="prefijoPuesto").string)
     empresa = str(title_panel.find("a", {"class": "link", "data-track": "Company Detail Clicked"}).string)
@@ -49,8 +48,6 @@ def scrap_title_panel(soup):
                  "tipo_contrato": tipo_contrato,
                  "salario": salario,
                  "exp_minima": exp_minima}
-    # except:
-    #     info_dict = dict()
     return info_dict
 
 
@@ -61,6 +58,6 @@ def scrap_this_page(url):
     :return title_info: dictionary with the interesting characteristics we have found in the given url.
     """
     soup = get_the_info(url)
-    sleep(3)
+    sleep(1)
     title_info = scrap_title_panel(soup)
     return title_info
