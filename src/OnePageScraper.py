@@ -8,9 +8,11 @@ from time import sleep
 
 def get_the_info(url):
     """
+    This function returns a BeautifulSoup object created from the given url without getting blocked.
     :param url: The url to be scraped.
-    :return: The BeautifulSoup object created with the requested connection.
+    :return: The BeautifulSoup object created from the given url.
     """
+    # Definimos un user-agent de navegador para poder cargar la página:
     headers = {
         "User-Agent": '''Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36
          (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.3'''
@@ -25,8 +27,11 @@ def scrap_title_panel(soup):
     :return info_dict: dictionary with the interesting characteristics we have found in the given title panel.
     """
     title_panel = soup.body.find("div", {"class": "panel-canvas panel-rounded"})
+    # Obtenemos los campos en el panel principal:
     puesto = str(title_panel.find(id="prefijoPuesto").string)
     empresa = str(title_panel.find("a", {"class": "link", "data-track": "Company Detail Clicked"}).string)
+    # Evitamos que la búsqueda del campo valoracion_empresa
+    # de error en caso de no estar presente:
     valoracion_empresa = title_panel.find("li", id="reviewStars")
     if valoracion_empresa:
         valoracion_empresa = int(valoracion_empresa.meter['value'])

@@ -14,17 +14,28 @@ from sys import stdout
 
 
 def scrape_search_result_page(url, driver, i):
+    """
+    This functions takes one search page url, the selenium driver and the page number
+    and returns the list of of job offer urls it has found after scrolling on it.
+    :param url: the search page url.
+    :param driver: the selenium driver being used.
+    :param i: the number of search page (first needs special treatment).
+    :return: list with job offer urls found in the page.
+    """
     # Scroll the page to get the info:
     SCROLL_PAUSE_TIME = 1
     driver.get(url)
+    # Exception for i == 1:
     if i == 1:
         input("Resolve the captcha and press enter when done.")
+    # Let the page load:
     sleep(2)
 
     page = driver.find_element_by_tag_name('body')
 
     last_height = driver.execute_script("return document.body.scrollHeight")
 
+    # Scroll down until we arrive to the bottom of the page:
     while True:
         page.send_keys(Keys.PAGE_DOWN)
         sleep(SCROLL_PAUSE_TIME)
@@ -33,9 +44,10 @@ def scrape_search_result_page(url, driver, i):
             break
         last_height = new_height
 
+    # Convert the completely loaded html file to BS object:
     soup = BeautifulSoup(driver.page_source, "html.parser")
 
-    # Get the urls:
+    # Get the urls in the complete page:
     items_panel = soup.find("ul", {"class": "ij-ComponentList"})
     offer_urls = ["https://" + item['href'][2:] for item in
                   items_panel.findAll("a", {"class": "ij-OfferCardContent-description-title-link"})]
@@ -43,6 +55,12 @@ def scrape_search_result_page(url, driver, i):
 
 
 def scrape_search_results(search_key):
+    """
+    This funtion takes the (already formatted) search_url, obtains the total number of offers,
+    starts the selenium driver, scrapes the search results pages and return the total list of offer urls.
+    :param search_key: keywords to search for in Infojobs.
+    :return: list with all the job offer urls fetched from the results pages.
+    """
     base_url = 'https://www.infojobs.net/ofertas-trabajo'
     search_url = base_url + '?keyword=' + quote(str(search_key))
     headers = {
@@ -71,7 +89,7 @@ def scrape_search_results(search_key):
     # # The driver itself
     driver = webdriver.Chrome('/usr/local/bin/chromedriver', options=options)
     driver.implicitly_wait(10)
-    #
+    # Getting all the job offers together:
     all_offer_urls = scrape_search_result_page(search_url, driver, 1)
     print()
     print("Analyzing search results:")
@@ -81,5 +99,6 @@ def scrape_search_results(search_key):
         new_urls = scrape_search_result_page(search_url+page_url, driver, i)
         all_offer_urls = all_offer_urls + new_urls
         sleep(1)
+    # We close the driver:
     driver.quit()
     return all_offer_urls
