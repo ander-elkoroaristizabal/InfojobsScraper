@@ -28,31 +28,31 @@ def scrap_title_panel(soup):
     """
     title_panel = soup.body.find("div", {"class": "panel-canvas panel-rounded"})
     # Obtenemos los campos en el panel principal:
-    puesto = str(title_panel.find(id="prefijoPuesto").string)
-    empresa = str(title_panel.find("a", {"class": "link", "data-track": "Company Detail Clicked"}).string)
+    position = str(title_panel.find(id="prefijoPuesto").string)
+    company = str(title_panel.find("a", {"class": "link", "data-track": "Company Detail Clicked"}).string)
     # Evitamos que la búsqueda del campo valoracion_empresa
     # de error en caso de no estar presente:
-    valoracion_empresa = title_panel.find("li", id="reviewStars")
-    if valoracion_empresa:
-        valoracion_empresa = int(valoracion_empresa.meter['value'])
+    company_valuation = title_panel.find("li", id="reviewStars")
+    if company_valuation:
+        company_valuation = int(company_valuation.meter['value'])
     else:
-        valoracion_empresa = None
-    ciudad = str(title_panel.find(id="prefijoPoblacion").string).strip(' ,')
-    pais = str(title_panel.find(id="prefijoPais").string).strip(' ()')
-    tipo_contrato = str(title_panel.find(id="prefijoJornada").string)[18:].capitalize()
+        company_valuation = None
+    city = str(title_panel.find(id="prefijoPoblacion").string).strip(' ,')
+    country = str(title_panel.find(id="prefijoPais").string).strip(' ()')
+    contract_type = str(title_panel.find(id="prefijoJornada").string)[18:].capitalize()
     # Para encontrar de manera más segura los contenidos interesantes sin id
     # reducimos el espacio de búsqueda a la lista de puntos:
     bullet_list = title_panel.find("div", {"class": "col-child inner"})
-    salario = sub(r"Salario:?", "", str(bullet_list.find(text=lambda t: "Salario" in t))).strip().capitalize()
-    exp_minima = str(bullet_list.find(text=lambda t: "Experiencia mínima" in t))[20:].capitalize()
-    info_dict = {"puesto": puesto,
-                 "empresa": empresa,
-                 "valoracion_empresa": valoracion_empresa,
-                 "ciudad": ciudad,
-                 "pais": pais,
-                 "tipo_contrato": tipo_contrato,
-                 "salario": salario,
-                 "exp_minima": exp_minima}
+    salary = sub(r"Salario:?", "", str(bullet_list.find(text=lambda t: "Salario" in t))).strip().capitalize()
+    min_exp = str(bullet_list.find(text=lambda t: "Experiencia mínima" in t))[20:].capitalize()
+    info_dict = {"position": position,
+                 "company": company,
+                 "valoracion_empresa": company_valuation,
+                 "city": city,
+                 "country": country,
+                 "contract_type": contract_type,
+                 "salary": salary,
+                 "min_exp": min_exp}
     return info_dict
 
 

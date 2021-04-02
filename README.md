@@ -45,14 +45,14 @@ The name of saved csv file is composed by the given keywords and the current dat
 *{keywords}\_{date}\_{time}.csv*.
 
 The following information is given about each job offer, if found: 
-* `puesto`: position. 
-* `empresa`: company. 
-* `valoracion_empresa`: company score within Infojobs, from 1 to 100. 
-* `ciudad`: the city where the offer is based. 
-* `pais`: the country where the offer is based, not always Spain. 
-* `tipo_contrato`: type of contract. 
-* `salario`: salary. 
-* `exp_minima`: expected minimum experience.
+* `position`.
+* `company`. 
+* `company_valuation`: company score within Infojobs, from 1 to 100. 
+* `city`: the city where the offer is based. 
+* `country`: the country where the offer is based, not always Spain. 
+* `contract_type`: type of contract, including working schedule.
+* `salary`. 
+* `min_exp`: expected minimum experience.
 * `url`: url to the offer.
 
 Note that the obtained data is volatile by nature. 
@@ -67,7 +67,7 @@ pandas
 tqdm
 ```
 
-This module also requires having installed [chromedriver](https://sites.google.com/a/chromium.org/chromedriver).
+This module also requires having [chromedriver](https://sites.google.com/a/chromium.org/chromedriver) installed.
 
 ## Files: 
 
