@@ -20,7 +20,7 @@ def get_the_info(url):
     return BeautifulSoup(urlopen(Request(url, headers=headers)), 'html.parser', from_encoding="windows-1252")
 
 
-def scrap_title_panel(soup):
+def scrape_title_panel(soup):
     """
     This function analyzes the title panel and retrieves the useful information as a dict.
     :param soup: BeautifulSoup object with the title panel.
@@ -56,7 +56,7 @@ def scrap_title_panel(soup):
     return info_dict
 
 
-def scrap_this_page(url):
+def scrape_this_page(url):
     """
     General routine scraping one given Infojobs url.
     :param url: the url of the Infojobs offer.
@@ -64,5 +64,5 @@ def scrap_this_page(url):
     """
     soup = get_the_info(url)
     sleep(1)
-    title_info = scrap_title_panel(soup)
+    title_info = scrape_title_panel(soup)
     return title_info

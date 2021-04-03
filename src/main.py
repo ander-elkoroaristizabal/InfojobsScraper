@@ -26,7 +26,7 @@ def get_link_info(list_with_urls):
     for url in tqdm(list_with_urls, desc="Progress scraping the offers", file=stdout):
         sleep(2)
         # Scrape the given url:
-        job_info = scrap_this_page(url)
+        job_info = scrape_this_page(url)
         job_info['url'] = url
         # Save the resulting dict
         dict_list.append(job_info)
