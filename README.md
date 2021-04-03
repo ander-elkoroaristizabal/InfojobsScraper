@@ -1,6 +1,6 @@
 # Infojobs Scraper
 
-![](others/img.png)
+![](docs/img.png)
 
 ***Remark: neither this repository nor its creator are related to Infojobs.***
 
@@ -67,7 +67,7 @@ pandas
 tqdm
 ```
 
-This module also requires having [chromedriver](https://sites.google.com/a/chromium.org/chromedriver) installed.
+This module also requires having the *Chrome* browser and [chromedriver](https://sites.google.com/a/chromium.org/chromedriver) installed.
 
 ## Files: 
 
