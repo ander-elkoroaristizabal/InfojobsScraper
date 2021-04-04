@@ -28,9 +28,9 @@ def scrape_search_result_page(url, driver, i):
     # Exception for i == 1:
     if i == 1:
         input('Resolve the captcha. \n' +
-                'Select the filters you want and annotate them if you need to keep track.\n' +
-                'Press enter when done.')
-    # Let the page load:
+              'Select the filters you want and annotate them if you need to keep track.\n' +
+              'Press enter when done.')
+    # We let the page load:
     sleep(2)
 
     page = driver.find_element_by_tag_name('body')
@@ -98,7 +98,7 @@ def scrape_search_results(search_key):
     print()
     print("Analyzing search results:")
     print()
-    for i in tqdm(range(2, num_pages+1), initial=1, total=num_pages, desc="Search pages scraped", file=stdout):
+    for i in tqdm(range(2, num_pages + 1), initial=1, total=num_pages, desc="Search pages scraped", file=stdout):
         page_url = sub(r"&page=\d", f"&page={i}", url_with_filters)
         new_urls = scrape_search_result_page(page_url, driver, i)
         all_offer_urls = all_offer_urls + new_urls
