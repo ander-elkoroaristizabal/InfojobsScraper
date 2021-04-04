@@ -20,14 +20,16 @@ def scrape_search_result_page(url, driver, i):
     :param url: the search page url.
     :param driver: the selenium driver being used.
     :param i: the number of search page (first needs special treatment).
-    :return: list with job offer urls found in the page.
+    :return: list with job offer urls found in the page,
     """
     # Scroll the page to get the info:
     SCROLL_PAUSE_TIME = 1
     driver.get(url)
     # Exception for i == 1:
     if i == 1:
-        input("Resolve the captcha, select filters and press enter when done.")
+        input('Resolve the captcha. \n' +
+                'Select the filters you want and annotate them if you need to keep track.\n' +
+                'Press enter when done.')
     # Let the page load:
     sleep(2)
 
@@ -81,7 +83,6 @@ def scrape_search_results(search_key):
     driver.implicitly_wait(10)
     # Resolving CAPTCHA, applying filters and getting filtered url and results:
     all_offer_urls = scrape_search_result_page(search_url, driver, 1)
-    # Getting the search url with the newly added filters:
     url_with_filters = driver.current_url
     # Getting number of results:
     soup = BeautifulSoup(urlopen(Request(url_with_filters, headers=headers)),

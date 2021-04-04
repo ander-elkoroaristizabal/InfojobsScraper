@@ -41,6 +41,7 @@ if __name__ == '__main__':
     print()
     # Input: palabras clave
     keywords = str(input("EN: enter keywords: ")) or "Data Scientist"
+    print()
     # Obtención de la lista de urls analizando las páginas resultado de la búsqueda:
     url_list = scrape_search_results(keywords)
     print()
