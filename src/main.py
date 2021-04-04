@@ -5,7 +5,7 @@ This file executes the routine retrieving the info from a given Infojobs job pos
 in its simplest version, and from several, in a bright future.
 """
 
-from OnePageScraper import scrap_this_page
+from OnePageScraper import scrape_this_page
 from SearchPageScraper import scrape_search_results
 import pandas as pd
 from time import sleep
