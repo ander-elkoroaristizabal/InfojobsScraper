@@ -8,7 +8,7 @@ from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
-from re import search
+from re import search, sub
 from tqdm import tqdm
 from sys import stdout
 
@@ -27,7 +27,7 @@ def scrape_search_result_page(url, driver, i):
     driver.get(url)
     # Exception for i == 1:
     if i == 1:
-        input("Resolve the captcha and press enter when done.")
+        input("Resolve the captcha, select filters and press enter when done.")
     # Let the page load:
     sleep(2)
 
@@ -67,16 +67,6 @@ def scrape_search_results(search_key):
         "User-Agent": '''Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36
          (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.3'''
     }
-    # Getting number of results:
-    soup = BeautifulSoup(urlopen(Request(search_url, headers=headers)),
-                         "html.parser", from_encoding="windows-1252")
-    num_of_offers_text = str(soup.find("h1", {"class": "ij-ResultsOverview"}).text)
-    num_of_offers_text = num_of_offers_text.replace(",", "")
-    num_results = int(search(r"\d*", num_of_offers_text).group(0))
-    num_pages = int(num_results/20) + 1
-    print()
-    print("Number of offers found:", num_results)
-    print()
     # Defining the driver
     # # Defining the options
     options = webdriver.ChromeOptions()
@@ -89,14 +79,27 @@ def scrape_search_results(search_key):
     # # The driver itself
     driver = webdriver.Chrome('/usr/local/bin/chromedriver', options=options)
     driver.implicitly_wait(10)
-    # Getting all the job offers together:
+    # Resolving CAPTCHA, applying filters and getting filtered url and results:
     all_offer_urls = scrape_search_result_page(search_url, driver, 1)
+    # Getting the search url with the newly added filters:
+    url_with_filters = driver.current_url
+    # Getting number of results:
+    soup = BeautifulSoup(urlopen(Request(url_with_filters, headers=headers)),
+                         "html.parser", from_encoding="windows-1252")
+    num_of_offers_text = str(soup.find("h1", {"class": "ij-ResultsOverview"}).text)
+    num_of_offers_text = num_of_offers_text.replace(",", "")
+    num_results = int(search(r"\d*", num_of_offers_text).group(0))
+    num_pages = int(num_results / 20) + 1
+    print()
+    print("Number of offers found:", num_results)
+    print()
+    # Analyzing the rest of search pages:
     print()
     print("Analyzing search results:")
     print()
     for i in tqdm(range(2, num_pages+1), initial=1, total=num_pages, desc="Search pages scraped", file=stdout):
-        page_url = str(f"&page={i}")
-        new_urls = scrape_search_result_page(search_url+page_url, driver, i)
+        page_url = sub(r"&page=\d", f"&page={i}", url_with_filters)
+        new_urls = scrape_search_result_page(page_url, driver, i)
         all_offer_urls = all_offer_urls + new_urls
         sleep(1)
     # We close the driver:
