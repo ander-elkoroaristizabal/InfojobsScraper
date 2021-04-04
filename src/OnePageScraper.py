@@ -1,4 +1,6 @@
-# This file has the functions needed to scrap one given Infojobs offer url.
+"""
+This file has the functions needed to scrap one given Infojobs offer url.
+"""
 
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
@@ -12,7 +14,7 @@ def get_the_info(url):
     :param url: The url to be scraped.
     :return: The BeautifulSoup object created from the given url.
     """
-    # Definimos un user-agent de navegador para poder cargar la página:
+    # We define a browser-like user-agent in order to get the page
     headers = {
         "User-Agent": '''Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36
          (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.3'''
@@ -27,11 +29,11 @@ def scrape_title_panel(soup):
     :return info_dict: dictionary with the interesting characteristics we have found in the given title panel.
     """
     title_panel = soup.body.find("div", {"class": "panel-canvas panel-rounded"})
-    # Obtenemos los campos en el panel principal:
+    # We get the info in the main panel:
     position = str(title_panel.find(id="prefijoPuesto").string)
     company = str(title_panel.find("a", {"class": "link", "data-track": "Company Detail Clicked"}).string)
-    # Evitamos que la búsqueda del campo valoracion_empresa
-    # de error en caso de no estar presente:
+    # We make sure the non-existence of company_valuation
+    # does not arise an error:
     company_valuation = title_panel.find("li", id="reviewStars")
     if company_valuation:
         company_valuation = int(company_valuation.meter['value'])
@@ -40,8 +42,8 @@ def scrape_title_panel(soup):
     city = str(title_panel.find(id="prefijoPoblacion").string).strip(' ,')
     country = str(title_panel.find(id="prefijoPais").string).strip(' ()')
     contract_type = str(title_panel.find(id="prefijoJornada").string)[18:].capitalize()
-    # Para encontrar de manera más segura los contenidos interesantes sin id
-    # reducimos el espacio de búsqueda a la lista de puntos:
+    # In order to find the contents without id more securely
+    # we restrict the search space to the dotted list
     bullet_list = title_panel.find("div", {"class": "col-child inner"})
     salary = sub(r"Salario:?", "", str(bullet_list.find(text=lambda t: "Salario" in t))).strip().capitalize()
     min_exp = str(bullet_list.find(text=lambda t: "Experiencia mínima" in t))[20:].capitalize()
